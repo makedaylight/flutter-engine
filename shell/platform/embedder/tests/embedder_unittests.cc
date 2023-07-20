@@ -2122,7 +2122,7 @@ TEST_F(EmbedderTest, VsyncCallbackPostedIntoFuture) {
     context.SetVsyncCallback([&](intptr_t baton) {
       platform_task_runner->PostTask([baton = baton, &engine, &vsync_latch]() {
         FlutterEngineOnVsync(engine.get(), baton, NanosFromEpoch(16),
-                             NanosFromEpoch(32));
+                             NanosFromEpoch(32), 0);
         vsync_latch.Signal();
       });
     });

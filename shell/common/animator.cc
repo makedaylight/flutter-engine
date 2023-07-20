@@ -99,7 +99,12 @@ void Animator::BeginFrame(
   FML_DCHECK(producer_continuation_);
   const fml::TimePoint frame_target_time =
       frame_timings_recorder_->GetVsyncTargetTime();
-  dart_frame_deadline_ = frame_target_time.ToEpochDelta();
+  // TODO(moffatman): kind of a hack to deal with pipeline depth 2
+  // It should be based on the latency of the frame
+  // Maybe frame recorder should know the latency?
+  dart_frame_deadline_ =
+      frame_target_time.ToEpochDelta() -
+      ((frame_target_time - frame_timings_recorder_->GetVsyncStartTime()) / 2);
   uint64_t frame_number = frame_timings_recorder_->GetFrameNumber();
   delegate_.OnAnimatorBeginFrame(frame_target_time, frame_number);
 
@@ -136,7 +141,7 @@ void Animator::Render(std::shared_ptr<flutter::LayerTree> layer_tree) {
     // Framework can directly call render with a built scene.
     frame_timings_recorder_ = std::make_unique<FrameTimingsRecorder>();
     const fml::TimePoint placeholder_time = fml::TimePoint::Now();
-    frame_timings_recorder_->RecordVsync(placeholder_time, placeholder_time);
+    frame_timings_recorder_->RecordVsync(placeholder_time, placeholder_time, 0);
     frame_timings_recorder_->RecordBuildStart(placeholder_time);
   }
 

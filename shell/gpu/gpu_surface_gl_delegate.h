@@ -48,6 +48,9 @@ struct GLPresentInfo {
   // The buffer damage refers to the region that needs to be set as damaged
   // within the frame buffer.
   const std::optional<SkIRect>& buffer_damage;
+
+  // For android pipeline TODO(moffatman): comment
+  int64_t vsync_id;
 };
 
 class GPUSurfaceGLDelegate {

@@ -2213,6 +2213,8 @@ ORIGIN: ../../../flutter/shell/platform/android/android_surface_software.cc + ..
 ORIGIN: ../../../flutter/shell/platform/android/android_surface_software.h + ../../../flutter/LICENSE
 ORIGIN: ../../../flutter/shell/platform/android/android_surface_vulkan_impeller.cc + ../../../flutter/LICENSE
 ORIGIN: ../../../flutter/shell/platform/android/android_surface_vulkan_impeller.h + ../../../flutter/LICENSE
+ORIGIN: ../../../flutter/shell/platform/android/android_surfacetransaction.cc + ../../../flutter/LICENSE
+ORIGIN: ../../../flutter/shell/platform/android/android_surfacetransaction.h + ../../../flutter/LICENSE
 ORIGIN: ../../../flutter/shell/platform/android/apk_asset_provider.cc + ../../../flutter/LICENSE
 ORIGIN: ../../../flutter/shell/platform/android/apk_asset_provider.h + ../../../flutter/LICENSE
 ORIGIN: ../../../flutter/shell/platform/android/context/android_context.cc + ../../../flutter/LICENSE
@@ -4795,6 +4797,8 @@ FILE: ../../../flutter/shell/platform/android/android_surface_software.cc
 FILE: ../../../flutter/shell/platform/android/android_surface_software.h
 FILE: ../../../flutter/shell/platform/android/android_surface_vulkan_impeller.cc
 FILE: ../../../flutter/shell/platform/android/android_surface_vulkan_impeller.h
+FILE: ../../../flutter/shell/platform/android/android_surfacetransaction.cc
+FILE: ../../../flutter/shell/platform/android/android_surfacetransaction.h
 FILE: ../../../flutter/shell/platform/android/apk_asset_provider.cc
 FILE: ../../../flutter/shell/platform/android/apk_asset_provider.h
 FILE: ../../../flutter/shell/platform/android/context/android_context.cc

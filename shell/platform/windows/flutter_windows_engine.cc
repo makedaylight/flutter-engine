@@ -425,7 +425,7 @@ void FlutterWindowsEngine::OnVsync(intptr_t baton) {
   std::chrono::nanoseconds frame_interval = FrameInterval();
   auto next = SnapToNextTick(current_time, start_time_, frame_interval);
   embedder_api_.OnVsync(engine_, baton, next.count(),
-                        (next + frame_interval).count());
+                        (next + frame_interval).count(), 0);
 }
 
 std::chrono::nanoseconds FlutterWindowsEngine::FrameInterval() {

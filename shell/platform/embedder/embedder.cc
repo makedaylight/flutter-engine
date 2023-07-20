@@ -2608,7 +2608,8 @@ FlutterEngineResult FlutterEngineOnVsync(FLUTTER_API_SYMBOL(FlutterEngine)
                                              engine,
                                          intptr_t baton,
                                          uint64_t frame_start_time_nanos,
-                                         uint64_t frame_target_time_nanos) {
+                                         uint64_t frame_target_time_nanos,
+                                         int64_t frame_target_vsync_id) {
   if (engine == nullptr) {
     return LOG_EMBEDDER_ERROR(kInvalidArguments, "Invalid engine handle.");
   }
@@ -2622,7 +2623,7 @@ FlutterEngineResult FlutterEngineOnVsync(FLUTTER_API_SYMBOL(FlutterEngine)
       fml::TimeDelta::FromNanoseconds(frame_target_time_nanos));
 
   if (!reinterpret_cast<flutter::EmbedderEngine*>(engine)->OnVsyncEvent(
-          baton, start_time, target_time)) {
+          baton, start_time, target_time, frame_target_vsync_id)) {
     return LOG_EMBEDDER_ERROR(
         kInternalInconsistency,
         "Could not notify the running engine instance of a Vsync event.");

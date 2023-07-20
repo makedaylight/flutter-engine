@@ -11,6 +11,7 @@
 #include "flutter/fml/memory/ref_ptr.h"
 #include "flutter/shell/platform/android/android_egl_surface.h"
 #include "flutter/shell/platform/android/android_shell_holder.h"
+#include "flutter/shell/platform/android/android_surfacetransaction.h"
 
 namespace flutter {
 
@@ -156,10 +157,15 @@ void AndroidSurfaceGLSkia::GLContextSetDamageRegion(
 bool AndroidSurfaceGLSkia::GLContextPresent(const GLPresentInfo& present_info) {
   FML_DCHECK(IsValid());
   FML_DCHECK(onscreen_surface_);
+  TRACE_EVENT1("flutter", "AndroidSurfaceGLSkia::GLContextPresent", "vsync_id",
+               std::to_string(present_info.vsync_id).c_str());
   if (present_info.presentation_time) {
     onscreen_surface_->SetPresentationTime(*present_info.presentation_time);
   }
-  return onscreen_surface_->SwapBuffers(present_info.frame_damage);
+  bool ret = onscreen_surface_->SwapBuffers(present_info.frame_damage);
+  AndroidSurfaceTransaction::GetInstance()->PresentWithVsyncId(
+      present_info.vsync_id);
+  return ret;
 }
 
 GLFBOInfo AndroidSurfaceGLSkia::GLContextFBO(GLFrameInfo frame_info) const {

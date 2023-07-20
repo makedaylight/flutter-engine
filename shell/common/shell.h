@@ -448,6 +448,7 @@ class Shell final : public PlatformView::Delegate,
   std::atomic<bool> waiting_for_first_frame_ = true;
   std::mutex waiting_for_first_frame_mutex_;
   std::condition_variable waiting_for_first_frame_condition_;
+  size_t last_frame_latency_ = 0;
 
   // Written in the UI thread and read from the raster thread. Hence make it
   // atomic.

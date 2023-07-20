@@ -53,6 +53,9 @@ class FrameTimingsRecorder {
   /// This is typically the next vsync signal timestamp.
   fml::TimePoint GetVsyncTargetTime() const;
 
+  // TODO(moffatman): comment
+  int64_t GetVsyncId() const;
+
   /// Timestamp of when the frame building started.
   fml::TimePoint GetBuildStartTime() const;
 
@@ -84,7 +87,9 @@ class FrameTimingsRecorder {
   size_t GetPictureCacheBytes() const;
 
   /// Records a vsync event.
-  void RecordVsync(fml::TimePoint vsync_start, fml::TimePoint vsync_target);
+  void RecordVsync(fml::TimePoint vsync_start,
+                   fml::TimePoint vsync_target,
+                   int64_t vsync_id);
 
   /// Records a build start event.
   void RecordBuildStart(fml::TimePoint build_start);
@@ -124,6 +129,7 @@ class FrameTimingsRecorder {
 
   fml::TimePoint vsync_start_;
   fml::TimePoint vsync_target_;
+  int64_t vsync_id_;
   fml::TimePoint build_start_;
   fml::TimePoint build_end_;
   fml::TimePoint raster_start_;

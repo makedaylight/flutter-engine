@@ -92,7 +92,7 @@ static std::unique_ptr<FrameTimingsRecorder> CreateFinishedBuildRecorder(
     fml::TimePoint timestamp) {
   std::unique_ptr<FrameTimingsRecorder> recorder =
       std::make_unique<FrameTimingsRecorder>();
-  recorder->RecordVsync(timestamp, timestamp);
+  recorder->RecordVsync(timestamp, timestamp, 0);
   recorder->RecordBuildStart(timestamp);
   recorder->RecordBuildEnd(timestamp);
   return recorder;

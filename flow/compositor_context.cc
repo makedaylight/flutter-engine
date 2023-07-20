@@ -115,10 +115,6 @@ CompositorContext::ScopedFrame::ScopedFrame(
   context_.BeginFrame(*this, instrumentation_enabled_);
 }
 
-CompositorContext::ScopedFrame::~ScopedFrame() {
-  context_.EndFrame(*this, instrumentation_enabled_);
-}
-
 RasterStatus CompositorContext::ScopedFrame::Raster(
     flutter::LayerTree& layer_tree,
     bool ignore_raster_cache,

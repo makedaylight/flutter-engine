@@ -27,7 +27,8 @@ bool VsyncWaiterEmbedder::OnEmbedderVsync(
     const flutter::TaskRunners& task_runners,
     intptr_t baton,
     fml::TimePoint frame_start_time,
-    fml::TimePoint frame_target_time) {
+    fml::TimePoint frame_target_time,
+    int64_t frame_target_vsync_id) {
   if (baton == 0) {
     return false;
   }
@@ -36,13 +37,14 @@ bool VsyncWaiterEmbedder::OnEmbedderVsync(
   // says that the engine will only process the frame when the time becomes
   // current.
   task_runners.GetUITaskRunner()->PostTaskForTime(
-      [frame_start_time, frame_target_time, baton]() {
+      [frame_start_time, frame_target_time, frame_target_vsync_id, baton]() {
         std::weak_ptr<VsyncWaiter>* weak_waiter =
             reinterpret_cast<std::weak_ptr<VsyncWaiter>*>(baton);
         auto vsync_waiter = weak_waiter->lock();
         delete weak_waiter;
         if (vsync_waiter) {
-          vsync_waiter->FireCallback(frame_start_time, frame_target_time);
+          vsync_waiter->FireCallback(frame_start_time, frame_target_time,
+                                     frame_target_vsync_id);
         }
       },
       frame_start_time);

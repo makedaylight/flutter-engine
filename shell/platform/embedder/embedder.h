@@ -2510,6 +2510,7 @@ FlutterEngineResult FlutterEngineDispatchSemanticsAction(
 ///                                      example, for a 60Hz display, embedders
 ///                                      should add 16.6 * 1e6 to the frame time
 ///                                      field.
+/// TODO(moffatman): Comment about frame_target_vsync_id
 ///
 /// @return     The result of the call.
 ///
@@ -2518,7 +2519,8 @@ FlutterEngineResult FlutterEngineOnVsync(FLUTTER_API_SYMBOL(FlutterEngine)
                                              engine,
                                          intptr_t baton,
                                          uint64_t frame_start_time_nanos,
-                                         uint64_t frame_target_time_nanos);
+                                         uint64_t frame_target_time_nanos,
+                                         int64_t frame_target_vsync_id);
 
 //------------------------------------------------------------------------------
 /// @brief      Reloads the system fonts in engine.
@@ -2873,7 +2875,8 @@ typedef FlutterEngineResult (*FlutterEngineOnVsyncFnPtr)(
     FLUTTER_API_SYMBOL(FlutterEngine) engine,
     intptr_t baton,
     uint64_t frame_start_time_nanos,
-    uint64_t frame_target_time_nanos);
+    uint64_t frame_target_time_nanos,
+    int64_t frame_target_vsync_id);
 typedef FlutterEngineResult (*FlutterEngineReloadSystemFontsFnPtr)(
     FLUTTER_API_SYMBOL(FlutterEngine) engine);
 typedef void (*FlutterEngineTraceEventDurationBeginFnPtr)(const char* name);

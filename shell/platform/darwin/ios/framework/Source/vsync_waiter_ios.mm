@@ -136,7 +136,7 @@ fml::scoped_nsobject<VSyncClient> VsyncWaiterIOS::GetVsyncClient() const {
 
   current_refresh_rate_ = round(1 / (frame_target_time - frame_start_time).ToSecondsF());
 
-  recorder->RecordVsync(frame_start_time, frame_target_time);
+  recorder->RecordVsync(frame_start_time, frame_target_time, 0);
   if (_allowPauseAfterVsync) {
     display_link_.get().paused = YES;
   }

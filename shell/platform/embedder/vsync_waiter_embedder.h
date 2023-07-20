@@ -22,7 +22,8 @@ class VsyncWaiterEmbedder final : public VsyncWaiter {
   static bool OnEmbedderVsync(const flutter::TaskRunners& task_runners,
                               intptr_t baton,
                               fml::TimePoint frame_start_time,
-                              fml::TimePoint frame_target_time);
+                              fml::TimePoint frame_target_time,
+                              int64_t frame_target_vsync_id);
 
  private:
   const VsyncCallback vsync_callback_;

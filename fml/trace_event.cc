@@ -157,6 +157,26 @@ void TraceEvent2(TraceArg category_group,
   );
 }
 
+void TraceEvent3(TraceArg category_group,
+                 TraceArg name,
+                 TraceArg arg1_name,
+                 TraceArg arg1_val,
+                 TraceArg arg2_name,
+                 TraceArg arg2_val,
+                 TraceArg arg3_name,
+                 TraceArg arg3_val) {
+  const char* arg_names[] = {arg1_name, arg2_name, arg3_name};
+  const char* arg_values[] = {arg1_val, arg2_val, arg3_val};
+  FlutterTimelineEvent(name,                            // label
+                       gTimelineMicrosSource.load()(),  // timestamp0
+                       0,                          // timestamp1_or_async_id
+                       Dart_Timeline_Event_Begin,  // event type
+                       3,                          // argument_count
+                       arg_names,                  // argument_names
+                       arg_values                  // argument_values
+  );
+}
+
 void TraceEventEnd(TraceArg name) {
   FlutterTimelineEvent(name,                            // label
                        gTimelineMicrosSource.load()(),  // timestamp0
@@ -358,6 +378,15 @@ void TraceEvent2(TraceArg category_group,
                  TraceArg arg1_val,
                  TraceArg arg2_name,
                  TraceArg arg2_val) {}
+
+void TraceEvent3(TraceArg category_group,
+                 TraceArg name,
+                 TraceArg arg1_name,
+                 TraceArg arg1_val,
+                 TraceArg arg2_name,
+                 TraceArg arg2_val,
+                 TraceArg arg3_name,
+                 TraceArg arg3_val) {}
 
 void TraceEventEnd(TraceArg name) {}
 

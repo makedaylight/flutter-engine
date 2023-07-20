@@ -209,13 +209,15 @@ bool EmbedderEngine::DispatchSemanticsAction(int node_id,
 
 bool EmbedderEngine::OnVsyncEvent(intptr_t baton,
                                   fml::TimePoint frame_start_time,
-                                  fml::TimePoint frame_target_time) {
+                                  fml::TimePoint frame_target_time,
+                                  int64_t frame_target_vsync_id) {
   if (!IsValid()) {
     return false;
   }
 
   return VsyncWaiterEmbedder::OnEmbedderVsync(
-      task_runners_, baton, frame_start_time, frame_target_time);
+      task_runners_, baton, frame_start_time, frame_target_time,
+      frame_target_vsync_id);
 }
 
 bool EmbedderEngine::ReloadSystemFonts() {

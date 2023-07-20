@@ -101,6 +101,12 @@
                               arg2_name, arg2_val);                        \
   __FML__AUTO_TRACE_END(name)
 
+#define TRACE_EVENT3(category_group, name, arg1_name, arg1_val, arg2_name, \
+                     arg2_val, arg3_name, arg3_val)                        \
+  ::fml::tracing::TraceEvent3(category_group, name, arg1_name, arg1_val,   \
+                              arg2_name, arg2_val, arg3_name, arg3_val);   \
+  __FML__AUTO_TRACE_END(name)
+
 #define TRACE_EVENT_ASYNC_BEGIN0(category_group, name, id) \
   ::fml::tracing::TraceEventAsyncBegin0(category_group, name, id);
 
@@ -145,6 +151,15 @@
   const auto __arg2_val_str = std::to_string(arg2_val);                        \
   TRACE_EVENT2(category_group, name, arg1_name, __arg1_val_str.c_str(),        \
                arg2_name, __arg2_val_str.c_str());
+
+#define TRACE_EVENT3_INT(category_group, name, arg1_name, arg1_val, arg2_name, \
+                         arg2_val, arg3_name, arg3_val)                        \
+  const auto __arg1_val_str = std::to_string(arg1_val);                        \
+  const auto __arg2_val_str = std::to_string(arg2_val);                        \
+  const auto __arg3_val_str = std::to_string(arg3_val);                        \
+  TRACE_EVENT3(category_group, name, arg1_name, __arg1_val_str.c_str(),        \
+               arg2_name, __arg2_val_str.c_str(), arg3_name,                   \
+               __arg3_val_str.c_str());
 
 namespace fml {
 namespace tracing {
@@ -276,6 +291,15 @@ void TraceEvent2(TraceArg category_group,
                  TraceArg arg1_val,
                  TraceArg arg2_name,
                  TraceArg arg2_val);
+
+void TraceEvent3(TraceArg category_group,
+                 TraceArg name,
+                 TraceArg arg1_name,
+                 TraceArg arg1_val,
+                 TraceArg arg2_name,
+                 TraceArg arg2_val,
+                 TraceArg arg3_name,
+                 TraceArg arg3_val);
 
 void TraceEventEnd(TraceArg name);
 

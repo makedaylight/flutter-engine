@@ -117,7 +117,7 @@ class CompositorContext {
                 DisplayListBuilder* display_list_builder,
                 impeller::AiksContext* aiks_context);
 
-    virtual ~ScopedFrame();
+    virtual ~ScopedFrame() = default;
 
     DlCanvas* canvas() { return canvas_; }
 
@@ -191,6 +191,8 @@ class CompositorContext {
 
   LayerSnapshotStore& snapshot_store() { return layer_snapshot_store_; }
 
+  void EndFrame(ScopedFrame& frame, bool enable_instrumentation);
+
  private:
   RasterCache raster_cache_;
   std::shared_ptr<TextureRegistry> texture_registry_;
@@ -202,8 +204,6 @@ class CompositorContext {
   FixedRefreshRateUpdater fixed_refresh_rate_updater_;
 
   void BeginFrame(ScopedFrame& frame, bool enable_instrumentation);
-
-  void EndFrame(ScopedFrame& frame, bool enable_instrumentation);
 
   FML_DISALLOW_COPY_AND_ASSIGN(CompositorContext);
 };

@@ -155,7 +155,8 @@ TEST_F(FlutterWindowsEngineTest, ConfiguresFrameVsync) {
       OnVsync,
       ([&on_vsync_called, engine_instance = engine.get()](
            FLUTTER_API_SYMBOL(FlutterEngine) engine, intptr_t baton,
-           uint64_t frame_start_time_nanos, uint64_t frame_target_time_nanos) {
+           uint64_t frame_start_time_nanos, uint64_t frame_target_time_nanos,
+           int64_t frame_target_vsync_id) {
         EXPECT_EQ(baton, 1);
         EXPECT_EQ(frame_start_time_nanos, 16600000);
         EXPECT_EQ(frame_target_time_nanos, 33200000);

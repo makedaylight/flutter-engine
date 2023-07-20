@@ -596,6 +596,7 @@ RasterStatus Rasterizer::DrawToSurfaceUnsafe(
     // the past and might need to get snapped to future as this frame could
     // have been resubmitted. `presentation_time` on `submit_info` is not set
     // in this case.
+    submit_info.vsync_id = frame_timings_recorder.GetVsyncId();
     const auto presentation_time = frame_timings_recorder.GetVsyncTargetTime();
     if (presentation_time > fml::TimePoint::Now()) {
       submit_info.presentation_time = presentation_time;
@@ -606,6 +607,10 @@ RasterStatus Rasterizer::DrawToSurfaceUnsafe(
     }
 
     frame->set_submit_info(submit_info);
+
+    frame_timings_recorder.RecordRasterEnd(
+        &compositor_context_->raster_cache());
+    compositor_context_->EndFrame(*compositor_frame, true);
 
     if (external_view_embedder_ &&
         (!raster_thread_merger_ || raster_thread_merger_->IsMerged())) {
@@ -622,8 +627,6 @@ RasterStatus Rasterizer::DrawToSurfaceUnsafe(
       compositor_context_->raster_cache().EndFrame();
     }
 
-    frame_timings_recorder.RecordRasterEnd(
-        &compositor_context_->raster_cache());
     FireNextFrameCallbackIfPresent();
 
     if (surface_->GetContext()) {
