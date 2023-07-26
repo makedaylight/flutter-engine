@@ -64,6 +64,7 @@ AndroidChoreographer::WhichChoreographer() {
   if (which_choreographer) {
     return which_choreographer.value();
   }
+  FML_LOG(ERROR) << "Running makedaylight/flutter-engine";
   auto libandroid = fml::NativeLibrary::Create("libandroid.so");
   FML_DCHECK(libandroid);
   auto get_instance_fn =
