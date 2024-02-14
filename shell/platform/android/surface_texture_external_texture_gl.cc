@@ -34,7 +34,8 @@ SurfaceTextureExternalTextureGL::~SurfaceTextureExternalTextureGL() {
 }
 
 void SurfaceTextureExternalTextureGL::ProcessFrame(PaintContext& context,
-                                                   const SkRect& bounds) {
+                                                   const SkRect& bounds,
+                                                   bool freeze) {
   if (state_ == AttachmentState::kUninitialized) {
     // Generate the texture handle.
     glGenTextures(1, &texture_name_);
@@ -43,7 +44,10 @@ void SurfaceTextureExternalTextureGL::ProcessFrame(PaintContext& context,
   FML_CHECK(state_ == AttachmentState::kAttached);
 
   // Updates the texture contents and transformation matrix.
-  Update();
+  if (!freeze && new_frame_ready_) {
+    Update();
+    new_frame_ready_ = false;
+  }
 
   // Create a
   GrGLTextureInfo textureInfo = {GL_TEXTURE_EXTERNAL_OES, texture_name_,
@@ -77,7 +81,8 @@ SurfaceTextureExternalTextureImpellerGL::
 
 void SurfaceTextureExternalTextureImpellerGL::ProcessFrame(
     PaintContext& context,
-    const SkRect& bounds) {
+    const SkRect& bounds,
+    bool freeze) {
   if (state_ == AttachmentState::kUninitialized) {
     // Generate the texture handle.
     impeller::TextureDescriptor desc;
@@ -102,7 +107,10 @@ void SurfaceTextureExternalTextureImpellerGL::ProcessFrame(
   FML_CHECK(state_ == AttachmentState::kAttached);
 
   // Updates the texture contents and transformation matrix.
-  Update();
+  if (!freeze && new_frame_ready_) {
+    Update();
+    new_frame_ready_ = false;
+  }
 
   dl_image_ = impeller::DlImageImpeller::Make(texture_);
 }

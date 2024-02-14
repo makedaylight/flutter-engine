@@ -36,7 +36,9 @@ class SurfaceTextureExternalTexture : public flutter::Texture {
   void OnTextureUnregistered() override;
 
  protected:
-  virtual void ProcessFrame(PaintContext& context, const SkRect& bounds) = 0;
+  virtual void ProcessFrame(PaintContext& context,
+                            const SkRect& bounds,
+                            bool freeze) = 0;
   virtual void Detach();
 
   void Attach(int gl_tex_id);

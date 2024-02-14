@@ -29,7 +29,8 @@ class SurfaceTextureExternalTextureGL : public SurfaceTextureExternalTexture {
 
  private:
   virtual void ProcessFrame(PaintContext& context,
-                            const SkRect& bounds) override;
+                            const SkRect& bounds,
+                            bool freeze) override;
   virtual void Detach() override;
 
   GLuint texture_name_ = 0;
@@ -50,7 +51,8 @@ class SurfaceTextureExternalTextureImpellerGL
 
  private:
   virtual void ProcessFrame(PaintContext& context,
-                            const SkRect& bounds) override;
+                            const SkRect& bounds,
+                            bool freeze) override;
   virtual void Detach() override;
 
   const std::shared_ptr<impeller::ContextGLES> impeller_context_;

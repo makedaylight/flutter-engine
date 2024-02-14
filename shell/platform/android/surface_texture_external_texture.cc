@@ -47,12 +47,7 @@ void SurfaceTextureExternalTexture::Paint(PaintContext& context,
   if (state_ == AttachmentState::kDetached) {
     return;
   }
-  const bool should_process_frame =
-      (!freeze && new_frame_ready_) || dl_image_ == nullptr;
-  if (should_process_frame) {
-    ProcessFrame(context, bounds);
-    new_frame_ready_ = false;
-  }
+  ProcessFrame(context, bounds, freeze);
   FML_CHECK(state_ == AttachmentState::kAttached);
 
   if (dl_image_) {
